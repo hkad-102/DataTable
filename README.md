@@ -16,11 +16,11 @@ Follow the steps below to get started with running the project on your local sys
 1. Clone the repository:
    git clone https://github.com/hkad-102/DataTable.git
 2. Navigate to the project directory:
-   cd DataTable
+   ## cd DataTable
 3. Install the Dependencies
-   npm install
+   ## npm install
 4. Start the development server
-   npm run dev
+   ## npm run dev
 
 
 This command will start the React development server and the app will be accessible at [http://localhost:3000](http://localhost:3000) in your browser.
