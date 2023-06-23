@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
+import Table from "../components/Table";
+import Pagination from "../components/Pagination";
 
 
 const Home = () => {
@@ -29,7 +31,7 @@ const Home = () => {
 
   
 
-  const sortedData = filteredData.sort((a, b) => {
+  filteredData.sort((a, b) => {
     const aVal = a[sortColumn];
     const bVal = b[sortColumn];
     if (aVal < bVal) return order === "asc" ? -1 : 1;
@@ -57,9 +59,6 @@ const Home = () => {
     pageNumbers.push(i);
   }
 
-  const handleClickPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
 
   return (
     <div className="p-10 bg-indigo-400">
@@ -73,80 +72,10 @@ const Home = () => {
                 <p>Try Something Different</p>
             </div>
         ) : (
-            
-            <table className="table-fixed bg-white">
-              <thead className="border">
-                <tr className="h-20">
-                  <th onClick={() => handleSort("id")} className="border">
-                    ID
-                  </th>
-                  <th onClick={() => handleSort("title")} className="border">
-                    Title
-                  </th>
-                  <th onClick={() => handleSort("body")} className="border">
-                    Body
-                  </th>
-                  <th onClick={() => handleSort("userId")} className="border">
-                    User ID
-                  </th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody className="border">
-                {currentItems.map((item) => {
-                  const { id, title, body, userId } = item;
-                  return (
-                    <tr className="border" key={id}>
-                      <td className="w-20 p-2 border text-center">{id}</td>
-                      <td className="w-[250px] p-4 border">
-                        {title}
-                      </td>
-                      <td className="border p-4 w-1/2">{body}</td>
-                      <td className="border text-center">{userId}</td>
-                      <td className="border text-center">
-                        <Link
-                          to={`/post/${id}`}
-                          className="flex items-center justify-center gap-3 hover:text-blue-500"
-                        >
-                          View Details{" "}
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                            />
-                          </svg>
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <Table currentItems={currentItems} handleSort={handleSort}/>
         )}
       <div className="mt-10 w-full">
-        <ul className="flex justify-center">
-          {pageNumbers.map((item) => {
-            return (
-              <li
-                key={item}
-                onClick={() => handleClickPage(item)}
-                className={`border border-black p-2 w-10 flex items-center justify-center h-10 ${
-                  item === currentPage ? "bg-blue-500 text-white" : "bg-white"
-                }`}
-              >
-                {item}
-              </li>
-            );
-          })}
-        </ul>
+        <Pagination pageNumbers={pageNumbers} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
       </div>
     </div>
   );
