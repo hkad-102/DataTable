@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
+
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -25,16 +27,7 @@ const Home = () => {
     }
   };
 
-  const handleSearch = (e) => {
-    const key = e.target.value.toLowerCase();
-    const searchResult = data.filter(
-      (item) =>
-        item.title.toLowerCase().includes(key) ||
-        item.body.toLowerCase().includes(key)
-    );
-    setFilteredData(searchResult);
-    setCurrentPage(1);
-  };
+  
 
   const sortedData = filteredData.sort((a, b) => {
     const aVal = a[sortColumn];
@@ -72,12 +65,7 @@ const Home = () => {
     <div className="p-10 bg-indigo-400">
       <h2 className="text-center font-bold text-3xl text-white ">Table Page</h2>
       <div className="w-full flex justify-center mt-10">
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={handleSearch}
-          className=" border-black border px-3 py-2 outline-none mb-4 w-[500px] rounded-xl"
-        />
+        <SearchBar data={data} setFilteredData={setFilteredData} setCurrentPage={setCurrentPage}/>
       </div>
         {filteredData.length === 0 ? (
             <div className="text-white text-xl font-bold h-screen">
