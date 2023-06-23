@@ -50,5 +50,6 @@ The important files and directories in the project are structured as follows:
 
 Contributions are welcome! If you have any suggestions or find any issues with the project, feel free to open an issue or submit a pull request.
 
+## Deploy on Vercel
 
 
