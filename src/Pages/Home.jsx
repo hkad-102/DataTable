@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
 import Pagination from "../components/Pagination";
@@ -29,8 +28,6 @@ const Home = () => {
     }
   };
 
-  
-
   filteredData.sort((a, b) => {
     const aVal = a[sortColumn];
     const bVal = b[sortColumn];
@@ -42,9 +39,12 @@ const Home = () => {
   const handleSort = (col) => {
     if (sortColumn === col) {
       setOrder(order === "asc" ? "dec" : "asc");
+    } else if(col === 'id' || col === 'userId') {
+      setSortColumn(col);
+      setOrder('dec')
     } else {
       setSortColumn(col);
-      setOrder("asc");
+      setOrder('asc')
     }
   };
 
